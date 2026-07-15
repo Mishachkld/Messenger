@@ -38,6 +38,23 @@ Real-time слой с самого начала выделен в **отдель
 
 Стек: ASP.NET Core Minimal API или Controllers, **Dapper + рукописный SQL** (не EF Core — цель проекта в том числе выучить SQL), PostgreSQL, миграции — чистые `.sql`-файлы (DbUp или просто скрипт-раннер).
 
+Структура — feature folders (вертикальные слайсы), а не слои `Controllers/Services/Repositories`: вся фича лежит в одной папке, внутренние файлы (endpoints / service / repository / models) — по необходимости, без пустых прослоек.
+
+```
+backend/api/
+├── Program.cs            # DI, middleware, маппинг эндпоинтов
+├── Features/
+│   ├── Auth/             # AuthEndpoints, AuthService (JWT, хеши), модели
+│   ├── Users/
+│   ├── Chats/
+│   └── Messages/         # можно слить с Chats, если репозитории срастутся
+└── Common/
+    ├── Database/         # фабрика подключений, раннер миграций
+    ├── Migrations/       # 001_users.sql, 002_chats.sql...
+    ├── Auth/             # JWT-мидлварь, CurrentUser-хелпер
+    └── Events/           # публикация в Redis (с этапа 4)
+```
+
 ### `backend/realtime` — сначала .NET, потом Go
 
 Максимально тупой и stateless — именно поэтому его легко переписать:
