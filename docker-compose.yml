@@ -1,0 +1,44 @@
+services:
+    redis:
+        image: redis:8
+        container_name: redis
+        restart: unless-stopped
+        ports:
+            - '6379:6379'
+        volumes:
+            - redis-data:/data
+        command:
+            - redis-server --requirepass root --appendonly yes
+
+    database:
+        image: postgres:16
+        container_name: postgres-messenger
+        restart: always
+        shm_size: 128mb
+        environment:
+            POSTGRES_PASSWORD: example
+            POSTGRES_USER: root
+            POSTGRES_DB: messenger
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+    
+    messenger-api:
+        build: 
+            context: .
+            dockerfile: backend/api/Dockerfile
+        hostname: messenger-api
+        restart: on-failure
+        ports:
+            - '8080:8080'
+        depends_on:
+            - database
+            - redis
+
+
+volumes:
+    redis-data:
+        driver: local
+    postgres-data:
+        driver: local
