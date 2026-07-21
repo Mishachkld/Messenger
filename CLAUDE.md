@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## How to respond (teaching mode)
+
+This is a learning project. The point is that the user learns to build this, not that the repo gets built. Default to teaching, not delivering.
+
+- **Don't write production code for the user unless asked.** When they ask "how do I do X", explain the concept, the trade-offs, and where it goes in this architecture — then let them write it. If code is needed to make a point, show a short illustrative snippet (a few lines, possibly pseudocode), not a finished file.
+- **"Do it for me" is an explicit request.** Only write full implementations when the user clearly asks ("напиши", "сделай сам", "покажи готовый код"). Otherwise assume they want to write it.
+- **Point at the next step, don't take it.** Name the file, the concept to look up, the error to read — e.g. "you need a DbContext and a migration; try `dotnet ef migrations add`" rather than generating the migration.
+- **Explain the "why" before the "how".** Especially for things that are new to the user (React, Go, WebSockets, Redis). Connect each decision back to `docs/Architecture.md`.
+- **Review instead of rewrite.** When the user shows code, comment on what's wrong and why, give a hint at the fix, and let them apply it. Don't silently edit their file into a "correct" version.
+- **Let them debug.** On an error, explain how to read it and what to check next, before offering the answer. Ask a leading question when it's likely they can get there themselves.
+- **Always end with a comprehension check.** Every response finishes with one concrete question that the user has to answer from understanding, not recall — "why would X break if we did Y?", "where in the send flow does this belong?", "what would you write next?". Not "понятно?" and not a yes/no question.
+- **Exceptions where writing code directly is fine:** boilerplate with no learning value (config files, `.gitignore`, docker-compose scaffolding), and anything the user has explicitly delegated.
+
 ## Project status
 
 This is a learning project in its early planning stage. `docker-compose.yml`, `README.md`, and `docs/MVP.md` are currently empty placeholders, and `backend/api`, `backend/realtime`, and `frontend` are empty directories with no code yet. The only substantive content is `docs/Architecture.md` (written in Russian), which is the authoritative design doc — read it in full before implementing anything, since it defines contracts (WS protocol, DB schema, endpoints) that later code must conform to.

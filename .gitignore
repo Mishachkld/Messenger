@@ -1,3 +1,4 @@
 .idea
 backend/api/bin
 backend/api/obj
+.env
