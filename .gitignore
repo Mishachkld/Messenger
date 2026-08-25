@@ -1,5 +1,5 @@
 .idea
-backend/api/bin
-backend/api/obj
-backend/api/appsettings.Development.json
+bin/
+obj/
+appsettings.*.local.json
 .env
