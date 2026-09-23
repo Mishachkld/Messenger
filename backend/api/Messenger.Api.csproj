@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Features\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.20" />
     <PackageReference Include="Npgsql" Version="10.0.3" />
   </ItemGroup>
 
