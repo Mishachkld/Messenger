@@ -8,9 +8,12 @@ public static class AuthEndpoints
         group.MapPost("/register", RegisterDelegateAsync);
     }
 
-    private static async Task<IResult> RegisterDelegateAsync(HttpContext context, AuthService authService)
+    private static async Task<IResult> RegisterDelegateAsync(
+        HttpContext context, 
+        AuthService authService,
+        UserAuthData userAuthData)
     {
-        var token = await authService.GenerateTokenAsync();
+        var token = await authService.RegisterAsync(userAuthData);
         return Results.Ok(token);
     }
 }
