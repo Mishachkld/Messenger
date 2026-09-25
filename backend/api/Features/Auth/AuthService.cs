@@ -5,9 +5,9 @@ namespace Messenger.Api.Features.Auth;
 
 public class AuthService : BaseService
 {
-    public Task<JwtSecurityToken> RegisterAsync(UserAuthData userAuthData)
+    public Task<ApiResponse<string>> RegisterAsync(UserAuthData userAuthData)
     {
         // TODO: логику регистрации добавить
-        return Task.FromResult(new JwtSecurityToken());
+        return Task.FromResult(new ApiResponse<string>(string.Empty));
     }
 }
