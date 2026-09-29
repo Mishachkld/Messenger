@@ -1,4 +1,4 @@
-using System.IdentityModel.Tokens.Jwt;
+using Messenger.Api.Common;
 using Messenger.Api.Common.Base;
 
 namespace Messenger.Api.Features.Auth;

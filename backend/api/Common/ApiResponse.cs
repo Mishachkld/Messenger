@@ -1,4 +1,4 @@
-namespace Messenger.Api.Common.Base;
+namespace Messenger.Api.Common;
 
 public class ApiResponse<T> where T : class
 {
