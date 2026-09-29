@@ -11,9 +11,9 @@ public static class AuthEndpoints
     private static async Task<IResult> RegisterDelegateAsync(
         HttpContext context, 
         AuthService authService,
-        UserAuthData userAuthData)
+        RegisterRequest registerRequest)
     {
-        var token = await authService.RegisterAsync(userAuthData);
+        var token = await authService.RegisterAsync(registerRequest);
         return Results.Ok(token);
     }
 }
