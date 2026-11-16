@@ -12,12 +12,27 @@ public class AuthService : BaseService
     private const string Issuer = "ISSUER";
     private const string Audience = "AUDIENCE";
     private const string KEY = "mysupersecret_secretsecretsecretkey!123"; // ключ для шифрации
+    private readonly AuthRepository _authRepository;
+
+    public AuthService(AuthRepository authRepository)
+    {
+        _authRepository = authRepository;
+    }
+
 
     public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
 
-    public Task<ApiResponse<string>> RegisterAsync(RegisterRequest registerRequest)
+    public async Task<ApiResponse<string>> RegisterAsync(RegisterRequest registerRequest)
     {
+        try
+        {
+            await _authRepository.CreateUserAsync(registerRequest);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         var claims = new List<Claim>
         {
             new(ClaimTypes.Name, registerRequest.Name),
@@ -31,6 +46,6 @@ public class AuthService : BaseService
         );
 
         var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-        return Task.FromResult(new ApiResponse<string>(token));
+        return new ApiResponse<string>(token);
     }
 }
